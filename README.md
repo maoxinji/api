@@ -11,6 +11,10 @@ api/auth/me
 
 逻辑是 
 前端请求头  设置 Accept   application/vnd.lumentest.v1+json  登录后
+
+参数含义vnd lumentest v1 可查看dingo-api文档
+https://learnku.com/docs/dingo-api/2.0.0/Configuration/1444
+
 需要设置 	Authorization 
 Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sdW1lbi10ZXN0LmNvbVwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU2MDI0MTg0OCwiZXhwIjoxNTYwMjQxOTA4LCJuYmYiOjE1NjAyNDE4NDgsImp0aSI6IjJwUG9oZFEwN2M2QjFMUWMiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.aAMPQ5Nh9is3HbJaFTWyj84QOaolCCbsFQIINu7gNqI
 才能请求带权限的接口
