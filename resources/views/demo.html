@@ -1,0 +1,67 @@
+<html>
+<head>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+var token = '';
+function loadXMLDoc()
+{
+	$.ajax({
+		url:"http://lumen-test.com/api/auth/login",
+		type:'POST',
+		dataType:'JSON',
+		data:{email:'513944612@qq.com',password:'123456'},
+		beforeSend	: function(xhr){
+			xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xhr.setRequestHeader("Accept","application/vnd.lumentest.v1+json");
+		},
+		success:function(result){
+        	token = result.result.token_type+' '+result.result.access_token;
+    	},
+    	complete:function(xhr,status){
+    		/*$refresh_token = xhr.getResponseHeader('Authorization');
+    		$Server = xhr.getResponseHeader('Server');
+    		console.log($refresh_token);
+    		console.log($Server);
+    		if($refresh_token){
+    			token = $refresh_token;
+    		}*/
+    	}
+	});
+}
+
+function loadMe(){
+	$.ajax({
+		url:"http://lumen-test.com/api/auth/me",
+		type:'GET',
+		dataType:"JSON",
+		data:{},
+		beforeSend	: function(xhr){
+			console.log(token);
+			xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xhr.setRequestHeader("Authorization",token);
+			xhr.setRequestHeader("Accept","application/vnd.lumentest.v1+json");
+		},
+		success:function(result,status,xhr){
+        	//alert(result);
+    	},
+    	complete:function(xhr,status){
+    		$refresh_token = xhr.getResponseHeader('Authorization');
+    		if($refresh_token){
+    			token = $refresh_token;
+    		}
+    	}
+	});
+}
+
+
+</script>
+</head>
+<body>
+
+<div id="myDiv"><h3></h3></div>
+<button type="button" onclick="loadXMLDoc()">获取token</button>
+<button type="button" onclick="loadMe()">我是这人</button>
+
+</body>
+</html>

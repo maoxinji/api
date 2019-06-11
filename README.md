@@ -21,3 +21,6 @@ App\Http\Middleware\Authenticate
 你可能需要
 php artisan jwt:secret
 生成自己的jwt key
+
+
+resources/views/demo.html下有前端调用例子，可自己封装ajax方法来实现调用接口公共代码部分
