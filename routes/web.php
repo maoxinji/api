@@ -21,7 +21,7 @@ $api->version('v1', function ($api) {
 	$api->post('auth/login', 'App\Api\V1\Controllers\AuthController@login');
 	//$api->middleware('jwt.refresh')->post('auth/refresh', 'App\Api\V1\Controllers\AuthController@refresh');
 	
-	$api->group(['prefix' => 'auth','namespace'=>'App\Api\V1\Controllers'], function($api)
+	$api->group(['prefix' => 'auth','middleware' => 'api','namespace'=>'App\Api\V1\Controllers'], function($api)
 	{
 	    $api->post('logout', 'AuthController@logout');
 	    $api->get('me', 'AuthController@me');

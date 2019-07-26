@@ -14,7 +14,6 @@ class AuthController  extends Controller
 
     public function __construct(JWTAuth $jwt)
     {
-        $this->middleware('api', ['except' => ['login']]);
         $this->jwt = $jwt;
     }
 
@@ -28,6 +27,7 @@ class AuthController  extends Controller
     }
 
     public function me(Request $request){
+        \Log::info(111);
         return $this->returnData(0,'ok',[],0,$this->jwt->user());
     }
 
@@ -35,7 +35,7 @@ class AuthController  extends Controller
     {
 
         return $this->returnData(0,'ok',[],0,[
-            'access_token' => $token,
+            'access_token' => 'bearer '.$token,
             'token_type' => 'bearer',
             'expires_in' => $this->jwt->factory()->getTTL() * 60
         ]);

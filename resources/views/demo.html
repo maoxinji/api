@@ -6,17 +6,17 @@
 var token = '';
 function loadXMLDoc()
 {
+
 	$.ajax({
 		url:"http://lumen-test.com/api/auth/login",
 		type:'POST',
 		dataType:'JSON',
 		data:{email:'513944612@qq.com',password:'123456'},
 		beforeSend	: function(xhr){
-			xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xhr.setRequestHeader("Accept","application/vnd.lumentest.v1+json");
+			xhr.setRequestHeader("Accept","application/x.zxxl.v1+json");
 		},
 		success:function(result){
-        	token = result.result.token_type+' '+result.result.access_token;
+        	token = result.result.access_token;
     	},
     	complete:function(xhr,status){
     		/*$refresh_token = xhr.getResponseHeader('Authorization');
@@ -28,22 +28,32 @@ function loadXMLDoc()
     		}*/
     	}
 	});
+
+
 }
 
 function loadMe(){
+	myAjax('http://lumen-test.com/api/auth/me','GET',{},function(result,status,xhr){
+
+	});
+}
+
+function myAjax(url,method,data,success){
 	$.ajax({
-		url:"http://lumen-test.com/api/auth/me",
-		type:'GET',
+		url:url,
+		type:method,
 		dataType:"JSON",
-		data:{},
+		data:data,
 		beforeSend	: function(xhr){
-			console.log(token);
-			xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			xhr.setRequestHeader("Authorization",token);
-			xhr.setRequestHeader("Accept","application/vnd.lumentest.v1+json");
+			xhr.setRequestHeader("Accept","application/x.zxxl.v1+json");
 		},
 		success:function(result,status,xhr){
-        	//alert(result);
+        	if(result.code == 0){
+        		success(result,status,xhr);
+        	}else{
+        		//token过了刷新时间，跳入登录页重新登录获取Token
+        	}
     	},
     	complete:function(xhr,status){
     		$refresh_token = xhr.getResponseHeader('Authorization');

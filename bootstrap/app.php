@@ -67,7 +67,7 @@ $app->middleware([
 ]);
 
 $app->routeMiddleware([
-     'api' => App\Http\Middleware\Authenticate::class,
+     'api' => App\Http\Middleware\TokenMiddleware::class,
 ]);
 
 /*
@@ -104,6 +104,16 @@ $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
+});
+
+
+/*
+ * 配置日志文件为每日
+ */
+$app->configureMonologUsing(function(\Monolog\Logger $monoLog) use ($app){
+    return $monoLog->pushHandler(
+        new \Monolog\Handler\RotatingFileHandler($app->storagePath().'/logs/lumen.log', 30 , env('Log_Level') , true , 0644) // 日志最大保存天数
+    );
 });
 
 return $app;

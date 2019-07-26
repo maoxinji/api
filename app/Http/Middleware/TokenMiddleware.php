@@ -15,7 +15,7 @@ use Closure;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class Authenticate extends BaseMiddleware
+class TokenMiddleware extends BaseMiddleware
 {
     /**
      * Handle an incoming request.
